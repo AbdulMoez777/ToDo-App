@@ -1,7 +1,7 @@
 import React from "react";
 import { CircleCheck, Trash2 } from "lucide-react";
 
-function ToDoList({ text }) {
+function ToDoList({ text, id, isComplete, deleteTodo }) {
   return (
     <div className="flex items-center my-3 gap-2">
       <div className="flex flex-1 items-center cursor-pointer">
@@ -10,7 +10,7 @@ function ToDoList({ text }) {
       </div>
 
       <div>
-        <Trash2 size={18} className="text-slate-500 cursor-pointer" />
+        <Trash2 onClick={()=>{deleteTodo(id)}} size={18} className="text-slate-500 cursor-pointer" />
       </div>
     </div>
   );
