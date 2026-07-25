@@ -13,7 +13,7 @@ function ToDoList({text}) {
       </div>
 
       <div>
-        <Trash2  className="text-slate-500"/>
+        <Trash2 size={18} className="text-slate-500"/>
       </div>
     </div>
   );
