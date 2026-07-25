@@ -1,17 +1,7 @@
 import { ListTodo } from "lucide-react";
 import React from "react";
 import ToDoList from "./ToDoList";
-import { useRef } from "react";
-
 function ToDo() {
-
-  const inputRef = useRef()
-
-  const add = () => {
-    const inputText = inputRef.current.value.trim();
-    console.log(inputText);
-    
-  }
   return (
     <div className="bg-white place-self-center w-11/12 max-w-md flex flex-col p-7 min-h-[550px] rounded-xl ">
       {/* title  */}
@@ -23,7 +13,6 @@ function ToDo() {
       {/* Input Box  */}
       <div className="flex items-center my-7 bg-gray-200 rounded-full">
         <input
-        ref={inputRef}
           type="text"
           placeholder="Add your task"
           className="bg-transparent border-0 outline-none flex-1 h-14 pl-6 placeholder:text-slate-600"
