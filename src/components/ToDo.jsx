@@ -1,5 +1,5 @@
 import { ListTodo } from "lucide-react";
-import React from "react";
+import React, { useEffect } from "react";
 import ToDoList from "./ToDoList";
 import { useRef, useState } from "react";
 
@@ -29,6 +29,22 @@ function ToDo() {
       return prvTodos.filter((todo) => todo.id !== id);
     });
   };
+
+  const toggle = (id) => {
+    setTodos((prevTodos) => {
+      return prevTodos.map((todo) => {
+        if(todo.id === id){
+          return {...todo, isComplete: !todo.isComplete}
+        }
+        return todo;
+      })
+    })
+  };
+
+  useEffect(()=>{
+    console.log(todos)
+
+  },[todos])
   return (
     <div className="bg-white place-self-center w-11/12 max-w-md flex flex-col p-7 min-h-[550px] rounded-xl ">
       {/* title  */}
@@ -63,6 +79,7 @@ function ToDo() {
               id={item.id}
               isComplete={item.isComplete}
               deleteTodo={deleteTodo}
+              toggle={toggle}
             />
           );
         })}
