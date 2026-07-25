@@ -4,7 +4,7 @@ import ToDoList from "./ToDoList";
 import { useRef, useState } from "react";
 
 function ToDo() {
-  const [todos, setTodos] = useState([]);
+  const [todoslist, setTodoslist] = useState(localStorage.getItem("todos") ? JSON.parse(localStorage.getItem("todos")) : []);
 
   const inputRef = useRef();
 
@@ -20,18 +20,18 @@ function ToDo() {
       text: inputText,
       isComplete: false,
     };
-    setTodos((prev) => [...prev, newTodo]);
+    setTodoslist((prev) => [...prev, newTodo]);
     inputRef.current.value = "";
   };
 
   const deleteTodo = (id) => {
-    setTodos((prvTodos) => {
+    setTodoslist((prvTodos) => {
       return prvTodos.filter((todo) => todo.id !== id);
     });
   };
 
   const toggle = (id) => {
-    setTodos((prevTodos) => {
+    setTodoslist((prevTodos) => {
       return prevTodos.map((todo) => {
         if(todo.id === id){
           return {...todo, isComplete: !todo.isComplete}
@@ -42,9 +42,8 @@ function ToDo() {
   };
 
   useEffect(()=>{
-    console.log(todos)
-
-  },[todos])
+ localStorage.setItem("todos", JSON.stringify(todoslist));
+  },[todoslist])
   return (
     <div className="bg-white place-self-center w-11/12 max-w-md flex flex-col p-7 min-h-[550px] rounded-xl ">
       {/* title  */}
@@ -71,7 +70,7 @@ function ToDo() {
 
       {/* List Component  */}
       <div>
-        {todos.map((item, index) => {
+        {todoslist.map((item, index) => {
           return (
             <ToDoList
               key={index}
