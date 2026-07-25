@@ -1,17 +1,27 @@
 import { ListTodo } from "lucide-react";
 import React from "react";
 import ToDoList from "./ToDoList";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 function ToDo() {
+  const [todos, setTodos] = useState([]);
 
-  const inputRef = useRef()
+  const inputRef = useRef();
 
   const add = () => {
     const inputText = inputRef.current.value.trim();
-    console.log(inputText);
-    
-  }
+
+    if (inputText === "") {
+      return null;
+    }
+
+    const newTodo = {
+      id: Date.now(),
+      text: inputText,
+    };
+    setTodos((prev) => [...prev, newTodo]);
+    inputRef.current.value = "";
+  };
   return (
     <div className="bg-white place-self-center w-11/12 max-w-md flex flex-col p-7 min-h-[550px] rounded-xl ">
       {/* title  */}
@@ -23,20 +33,24 @@ function ToDo() {
       {/* Input Box  */}
       <div className="flex items-center my-7 bg-gray-200 rounded-full">
         <input
-        ref={inputRef}
+          ref={inputRef}
           type="text"
           placeholder="Add your task"
           className="bg-transparent border-0 outline-none flex-1 h-14 pl-6 placeholder:text-slate-600"
         />
-        <button onClick={add} className="bg-indigo-600 hover:bg-indigo-700 rounded-full w-32 h-14 text-white text-lg font-medium cursor-pointer">
+        <button
+          onClick={add}
+          className="bg-indigo-600 hover:bg-indigo-700 rounded-full w-32 h-14 text-white text-lg font-medium cursor-pointer"
+        >
           ADD +
         </button>
       </div>
 
       {/* List Component  */}
       <div>
-        <ToDoList text="Learn Coding"/>
-        <ToDoList text="Learn Codind with Moeeeeezzzz"/>
+        {todos.map((item, index) => {
+          return <ToDoList key={index} text={item.text} id={item.id} isComplete={item.isComplete} />
+        })}
       </div>
     </div>
   );
